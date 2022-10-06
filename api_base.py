@@ -25,13 +25,19 @@ class AbstractApi:
         self._host = host
         self._username = username
         self._token = token
+        self._init()
+
+    def _init(self):
+        pass
 
     def host(self, endpoint: str = '/'):
         return regex.sub(r"\/+$", '', self._host) + regex.sub(r"^\/+", '/', '/' + endpoint)
+    
+    def username(self):
+        return self._username
 
     def raw_invoke_request(self, method: str, path: str, data: dict, headers: dict) -> requests.Response:
-        endpoint = regex.sub(r"\/+$", '', self.endpoint) + regex.sub(r"^\/*", '/', path.format(username=self._username))
-        res = requests.request(method, endpoint,
+        res = requests.request(method, self.host(path),
                                headers = {'Authorization': 'Token {}'.format(self._token), **headers},
                                data = data)
         return res
@@ -45,38 +51,9 @@ class AbstractApiMethod:
     def invoke_request(self, method: str, 
                        path_args: dict = {},
                        data: dict = {},
-                       headers: dict = {}) -> dict:
-        path = self._path.format(**path_args)
-        res = self._api.raw_invoke_request(method, path, data, headers)
-        try:
-            return res.json()
-        except json.JSONDecodeError as e:
-            raise RuntimeError("Not a json", res.status_code, e)          
-
-    def GET(self, *args, **kwargs):
-        return get(*args, **kwargs)
-    def PUT(self, *args, **kwargs):
-        return put(*args, **kwargs)
-    def POST(self, *args, **kwargs):
-        return post(*args, **kwargs)
-    def PATCH(self, *args, **kwargs):
-        return patch(*args, **kwargs)
-    def DELETE(self, *args, **kwargs):
-        return delete(*args, **kwargs)
-
-    def get(self, *args, **kwargs):
-        raise NotImplementedError()
-    def put(self, *args, **kwargs):
-        raise NotImplementedError()
-    def post(self, *args, **kwargs):
-        raise NotImplementedError()
-    def patch(self, *args, **kwargs):
-        raise NotImplementedError()
-    def delete(self, *args, **kwargs):
-        raise NotImplementedError()
-
-
-
+                       headers: dict = {}) -> requests.Response:
+        path = self._path.format(**path_args, username = self._api.username())
+        return self._api.raw_invoke_request(method, path, data, headers)
 
 
 

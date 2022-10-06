@@ -128,7 +128,8 @@ class Parser:
         #           'method': <http method, allows GET, PUT, POST, PATCH, DELETE>,
         #           'query_params': [ <parameters: str>, ... ],
         #           'data_params': [ <parameters: str>, ... ],
-        #           'description': <description>
+        #           'description': <description>,
+        #           'raw_params': <raw text in params>
         #         }
         #       ]
         #     }, ...
@@ -163,6 +164,7 @@ class Parser:
                     'description': captures['mthdescription'][0],
                     'query_params': captures['query_parameter'],
                     'data_params': captures['data_parameter'],
+                    'raw_params': captures['parameters'][0]
                 })
         
         def raw_do(context: ParserContext, line: str):
