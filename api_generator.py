@@ -12,7 +12,7 @@ import os
 _api_class_define_template = "class {name}(AbstractApi):\n"
 _api_method_class_define_template = "class {name}(AbstractApiMethod):\n"
 _api_method_func_define_templae = "def {name}({args}):\n"
-_api_method_invoke_template = "self.invoke_request('{method}',\n{nop:27}{{ {path_args} }},\n{nop:27}{data})\n"
+_api_method_invoke_template = "self.invoke_request('{method}',\n{nop:27}{{{path_args}}},\n{nop:27}{data})\n"
 _api_method_description_template = '"""' """
 {api_name}
 > {method} {path}
@@ -144,9 +144,9 @@ def format_api(api: dict):
     if '_group' in api:
         group = '\n'.join(api.pop('_group').values())
     for k, v in api.items():
-        cls = _api_class_define_template.format(name=regex.sub(r"^(\w)|_(\w)", k))
+        cls = _api_class_define_template.format(name=regex.sub(r"^(\w)|_(\w)", lambda x: (x[1] or x[2]).upper(), k))
         out += cls + add_tab(format_api(v), 4)
-    return out + group
+    return out + '\n' + group
             
         
 

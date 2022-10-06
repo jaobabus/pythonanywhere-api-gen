@@ -1,9 +1,9 @@
 import api_base
 
 
-class always_on(AbstractApi):
-    class by_id(AbstractApi):
-        class restart(AbstractApi):
+class AlwaysOn(AbstractApi):
+    class ById(AbstractApi):
+        class Restart(AbstractApi):
             def post(id: str, command: str, description: str, enabled: str):
                 """
                 always_on.by_id.restart
@@ -11,8 +11,9 @@ class always_on(AbstractApi):
                 Endpoints for always-on tasks
                 """
                 return self.invoke_request('POST',
-                                           { 'id':id },
+                                           {'id':id},
                                            {'command': command, 'description': description, 'enabled': enabled})
+        
         def get(id: str):
             """
             always_on.by_id
@@ -20,7 +21,7 @@ class always_on(AbstractApi):
             Return information about an always-on task.
             """
             return self.invoke_request('GET',
-                                       { 'id':id },
+                                       {'id':id},
                                        {})
         
         def put(id: str, command: str, description: str, enabled: str):
@@ -30,7 +31,7 @@ class always_on(AbstractApi):
             Endpoints for always-on tasks
             """
             return self.invoke_request('PUT',
-                                       { 'id':id },
+                                       {'id':id},
                                        {'command': command, 'description': description, 'enabled': enabled})
         
         def patch(id: str, command: str, description: str, enabled: str):
@@ -40,7 +41,7 @@ class always_on(AbstractApi):
             Endpoints for always-on tasks
             """
             return self.invoke_request('PATCH',
-                                       { 'id':id },
+                                       {'id':id},
                                        {'command': command, 'description': description, 'enabled': enabled})
         
         def delete(id: str):
@@ -50,8 +51,9 @@ class always_on(AbstractApi):
             Stop and delete an always-on task
             """
             return self.invoke_request('DELETE',
-                                       { 'id':id },
+                                       {'id':id},
                                        {})
+    
     def get():
         """
         always_on
@@ -59,7 +61,7 @@ class always_on(AbstractApi):
         List all of your always-on tasks
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def post(command: str, description: str, enabled: str):
@@ -69,12 +71,13 @@ class always_on(AbstractApi):
         Create and start a new always-on task
         """
         return self.invoke_request('POST',
-                                   {  },
+                                   {},
                                    {'command': command, 'description': description, 'enabled': enabled})
 
 
-class consoles(AbstractApi):
-    class shared_with_you(AbstractApi):
+
+class Consoles(AbstractApi):
+    class SharedWithYou(AbstractApi):
         def get():
             """
             consoles.shared_with_you
@@ -82,10 +85,10 @@ class consoles(AbstractApi):
             View consoles shared with you.
             """
             return self.invoke_request('GET',
-                                       {  },
+                                       {},
                                        {})
-    class by_id(AbstractApi):
-        class get_latest_output(AbstractApi):
+    class ById(AbstractApi):
+        class GetLatestOutput(AbstractApi):
             def get(id: str):
                 """
                 consoles.by_id.get_latest_output
@@ -93,9 +96,9 @@ class consoles(AbstractApi):
                 Get the most recent output from the console (approximately 500 characters).
                 """
                 return self.invoke_request('GET',
-                                           { 'id':id },
+                                           {'id':id},
                                            {})
-        class send_input(AbstractApi):
+        class SendInput(AbstractApi):
             def post(id: str, input: str):
                 """
                 consoles.by_id.send_input
@@ -103,8 +106,9 @@ class consoles(AbstractApi):
                 "type" into the console. Add a "\n" for return.
                 """
                 return self.invoke_request('POST',
-                                           { 'id':id },
+                                           {'id':id},
                                            {'input': input})
+        
         def get(id: str):
             """
             consoles.by_id
@@ -112,7 +116,7 @@ class consoles(AbstractApi):
             Return information about a console instance.
             """
             return self.invoke_request('GET',
-                                       { 'id':id },
+                                       {'id':id},
                                        {})
         
         def delete(id: str):
@@ -122,8 +126,9 @@ class consoles(AbstractApi):
             Kill a console.
             """
             return self.invoke_request('DELETE',
-                                       { 'id':id },
+                                       {'id':id},
                                        {})
+    
     def get():
         """
         consoles
@@ -131,7 +136,7 @@ class consoles(AbstractApi):
         List all your consoles
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def post(executable: str, arguments: str, working_directory: str):
@@ -141,11 +146,12 @@ class consoles(AbstractApi):
         Create a new console object (NB does not actually start the process. Only connecting to the console in a browser will do that).
         """
         return self.invoke_request('POST',
-                                   {  },
+                                   {},
                                    {'executable': executable, 'arguments': arguments, 'working_directory': working_directory})
 
 
-class cpu(AbstractApi):
+
+class Cpu(AbstractApi):
     def get():
         """
         cpu
@@ -158,11 +164,12 @@ class cpu(AbstractApi):
         }
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
 
 
-class default_python3_version(AbstractApi):
+
+class DefaultPython3Version(AbstractApi):
     def get():
         """
         default_python3_version
@@ -174,7 +181,7 @@ class default_python3_version(AbstractApi):
         }
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def patch():
@@ -184,11 +191,12 @@ class default_python3_version(AbstractApi):
         Sets default Python 3 version for user.
         """
         return self.invoke_request('PATCH',
-                                   {  },
+                                   {},
                                    {})
 
 
-class default_python_version(AbstractApi):
+
+class DefaultPythonVersion(AbstractApi):
     def get():
         """
         default_python_version
@@ -200,7 +208,7 @@ class default_python_version(AbstractApi):
         }
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def patch():
@@ -210,11 +218,12 @@ class default_python_version(AbstractApi):
         Sets default Python version for user.
         """
         return self.invoke_request('PATCH',
-                                   {  },
+                                   {},
                                    {})
 
 
-class default_save_and_run_python_version(AbstractApi):
+
+class DefaultSaveAndRunPythonVersion(AbstractApi):
     def get():
         """
         default_save_and_run_python_version
@@ -226,7 +235,7 @@ class default_save_and_run_python_version(AbstractApi):
         }
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def patch():
@@ -236,12 +245,13 @@ class default_save_and_run_python_version(AbstractApi):
         Sets Python version used for the "Run" button in the editor.
         """
         return self.invoke_request('PATCH',
-                                   {  },
+                                   {},
                                    {})
 
 
-class files(AbstractApi):
-    class pathby_path(AbstractApi):
+
+class Files(AbstractApi):
+    class PathbyPath(AbstractApi):
         def get(path: str):
             """
             files.pathby_path
@@ -249,7 +259,7 @@ class files(AbstractApi):
             
             """
             return self.invoke_request('GET',
-                                       { 'path':path },
+                                       {'path':path},
                                        {})
         
         def post(path: str):
@@ -259,7 +269,7 @@ class files(AbstractApi):
             Uploads a file to the specified file path. Contents should be in a multipart-encoded file with the name "content". The attached filename is ignored. If the directories in the given path do not exist, they will be created. Any file already present at the specified path will be overwritten. Returns 201 on success if a file has been created, or 200 if an existing file has been updated.
             """
             return self.invoke_request('POST',
-                                       { 'path':path },
+                                       {'path':path},
                                        {})
         
         def delete(path: str):
@@ -269,9 +279,9 @@ class files(AbstractApi):
             Deletes the file at the specified path. This method can be used to delete log files that are not longer required. Returns 204 on success.
             """
             return self.invoke_request('DELETE',
-                                       { 'path':path },
+                                       {'path':path},
                                        {})
-    class sharing(AbstractApi):
+    class Sharing(AbstractApi):
         def get(path: str):
             """
             files.sharing
@@ -279,7 +289,7 @@ class files(AbstractApi):
             Check sharing status for a path. Returns 404 if path not currently shared.
             """
             return self.invoke_request('GET',
-                                       { 'path':path },
+                                       {'path':path},
                                        {})
         
         def delete(path: str):
@@ -289,9 +299,9 @@ class files(AbstractApi):
             Stop sharing a path. Returns 204 on successful unshare.
             """
             return self.invoke_request('DELETE',
-                                       { 'path':path },
+                                       {'path':path},
                                        {})
-    class tree(AbstractApi):
+    class Tree(AbstractApi):
         def get(path: str):
             """
             files.tree
@@ -299,12 +309,13 @@ class files(AbstractApi):
             Returns a list of the contents of a directory, and its subdirectories as a list. Paths ending in slash/ represent directories. Limited to 1000 results.
             """
             return self.invoke_request('GET',
-                                       { 'path':path },
+                                       {'path':path},
                                        {})
 
 
-class schedule(AbstractApi):
-    class by_id(AbstractApi):
+
+class Schedule(AbstractApi):
+    class ById(AbstractApi):
         def get(id: str):
             """
             schedule.by_id
@@ -312,7 +323,7 @@ class schedule(AbstractApi):
             Return information about a scheduled task.
             """
             return self.invoke_request('GET',
-                                       { 'id':id },
+                                       {'id':id},
                                        {})
         
         def put(id: str, command: str, enabled: str, interval: str, hour: str, minute: str, description: str):
@@ -322,7 +333,7 @@ class schedule(AbstractApi):
             Endpoints for scheduled tasks
             """
             return self.invoke_request('PUT',
-                                       { 'id':id },
+                                       {'id':id},
                                        {'command': command, 'enabled': enabled, 'interval': interval, 'hour': hour, 'minute': minute, 'description': description})
         
         def patch(id: str, command: str, enabled: str, interval: str, hour: str, minute: str, description: str):
@@ -332,7 +343,7 @@ class schedule(AbstractApi):
             Endpoints for scheduled tasks
             """
             return self.invoke_request('PATCH',
-                                       { 'id':id },
+                                       {'id':id},
                                        {'command': command, 'enabled': enabled, 'interval': interval, 'hour': hour, 'minute': minute, 'description': description})
         
         def delete(id: str):
@@ -342,8 +353,9 @@ class schedule(AbstractApi):
             Delete an scheduled task
             """
             return self.invoke_request('DELETE',
-                                       { 'id':id },
+                                       {'id':id},
                                        {})
+    
     def get():
         """
         schedule
@@ -351,7 +363,7 @@ class schedule(AbstractApi):
         List all of your scheduled tasks
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def post(command: str, enabled: str, interval: str, hour: str, minute: str, description: str):
@@ -361,12 +373,13 @@ class schedule(AbstractApi):
         Create a new scheduled task
         """
         return self.invoke_request('POST',
-                                   {  },
+                                   {},
                                    {'command': command, 'enabled': enabled, 'interval': interval, 'hour': hour, 'minute': minute, 'description': description})
 
 
-class students(AbstractApi):
-    class by_student(AbstractApi):
+
+class Students(AbstractApi):
+    class ByStudent(AbstractApi):
         def delete(student: str):
             """
             students.by_student
@@ -374,8 +387,9 @@ class students(AbstractApi):
             
             """
             return self.invoke_request('DELETE',
-                                       { 'student':student },
+                                       {'student':student},
                                        {})
+    
     def get():
         """
         students
@@ -390,11 +404,12 @@ class students(AbstractApi):
         }
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
 
 
-class system_image(AbstractApi):
+
+class SystemImage(AbstractApi):
     def get():
         """
         system_image
@@ -406,7 +421,7 @@ class system_image(AbstractApi):
         }
         """
         return self.invoke_request('GET',
-                                   {  },
+                                   {},
                                    {})
     
     def patch():
@@ -416,5 +431,6 @@ class system_image(AbstractApi):
         Sets system image for user.
         """
         return self.invoke_request('PATCH',
-                                   {  },
+                                   {},
                                    {})
+
